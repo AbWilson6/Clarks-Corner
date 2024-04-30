@@ -1,0 +1,77 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Collectibles</title>
+    <link rel="stylesheet" href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css'/>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+    <div class="header">
+        <a href="{% url 'home' %}">
+            <h1>CLARK'S CORNER</h1>
+        </a>
+        <!-- List of categories -->
+        <!-- Search bar -->
+        <div class="search-container">
+            <form action="{% url 'search' %}" method="get">
+                <input type="text" placeholder="Search Products..." name="q">
+                <button type="submit"><i class='bx bx-search-alt-2'></i></button>
+            </form>
+        </div>
+        <div class="container">
+            {% if user.is_authenticated %}
+                <a href="{% url 'profile' seller_id=user.id%}">
+                    <button class="log">{{ user.username }}</button>
+                </a>
+                <form action="{% url 'logout' %}" method="post">
+                    {% csrf_token %}
+                    <button type="submit">Logout</button>
+                </form>
+                <a href="{% url 'cart' %}">
+                    <button class="cart">View My Cart</button>
+                </a>
+            {% else %}
+                <a href="{% url 'login' %}">
+                    <button class="log">Login</button>
+                </a>
+                <a href="{% url 'signup' %}">
+                    <button class="reg">Sign Up</button>
+                </a>
+            {% endif %}
+            </div> 
+        </div>
+    </div>
+    <ul class="categories-list">
+        <li><a href="{% url 'textbooks' %}">Textbooks</a></li>
+        <li><a href="{% url 'electronics' %}">Electronics</a></li>
+        <li><a href="{% url 'housing' %}">Housing & Living</a></li>
+        <li><a href="{% url 'fashion' %}">Fashion</a></li>
+        <li><a href="{% url 'stationary' %}">Stationary</a></li>
+        <li><a href="{% url 'collectibles' %}">Collectibles</a></li>
+        <!-- Add more categories as needed -->
+    </ul>
+    <div class="header">
+        <h2>Collectibles</h2>
+    </div>
+    <div class="products">
+        {% for product in collectible_products %}
+            <div class="product">
+                <a href="{% url 'product' product_id=product.product_id %}">
+                    <img src="{% static product.p_image %}" alt="{{ product.p_name }}">
+                    <h3>{{ product.p_name }}</h3>
+                </a>
+                <p>Price: ${{ product.price }}</p>
+                <a href = "{% url 'profile' seller_id=product.seller.id %}">
+                    <p>Seller: {{ product.seller.clark_email }}</p>
+                </a>
+            </div>
+            {% if forloop.counter|divisibleby:5 and not forloop.last %}
+                </div><div class="products">
+            {% endif %}
+        {% endfor %}
+    </div>
+</body>
+</html>
+

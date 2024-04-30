@@ -1,0 +1,63 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Add Product</title>
+    <link rel="stylesheet" href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css'>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+    <div class="header">
+        <a href="{% url 'home' %}">
+            <h1>CLARK'S CORNER</h1>
+        </a>
+        <!-- List of categories -->
+        <!-- Search bar -->
+        <div class="search-container">
+            <form action="#" method="get">
+                <input type="text" placeholder="Search Products..." name="q">
+                <button type="submit"><i class='bx bx-search-alt-2'></i></button>
+            </form>
+        </div>
+        <div class="container">
+            {% if user.is_authenticated %}
+                <a href="{% url 'profile' seller_id=user.id %}">
+                    <button class="log">{{ user.username }}</button>
+                </a>
+                <form action="{% url 'logout' %}" method="post">
+                    {% csrf_token %}
+                    <button type="submit">Logout</button>
+                </form>
+            {% else %}
+                <a href="{% url 'login' %}">
+                    <button class="log">Login</button>
+                </a>
+                <a href="{% url 'signup' %}">
+                    <button class="reg">Sign Up</button>
+                </a>
+            {% endif %}
+        </div>
+    </div>
+    <div class="header">
+        <h1>Write a Review</h1>
+    </div>
+    <div class="review-form">
+        <form action="{% url 'review' seller_id = seller.id %}" method="post">
+            {% csrf_token %}
+            <label for="review_description">Review:</label><br>
+            <textarea id="review_description" name="review_description" rows="4" cols="50"></textarea><br>
+            <label for="rating">Rating:</label>
+            <select id="rating" name="rating">
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+            </select><br>
+            <button type="submit">Submit Review</button>
+        </form>
+    </div>
+
+</body>
+</html>

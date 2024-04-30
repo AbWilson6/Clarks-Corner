@@ -1,0 +1,76 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Clark's Corner</title>
+    <link rel="stylesheet" href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css'>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+    <div class="header">
+        <a href="{% url 'home' %}">
+            <h1>CLARK'S CORNER</h1>
+        </a>
+        <!-- List of categories -->
+        <!-- Search bar -->
+        <div class="search-container">
+            <form action="{% url 'search' %}" method="get">
+                <input type="text" placeholder="Search Products..." name="q">
+                <button type="submit"><i class='bx bx-search-alt-2'></i></button>
+            </form>
+        </div>
+        <div class="container">
+            {% if user.is_authenticated %}
+                <a href="{% url 'profile' seller_id=user.id %}">
+                    <button class="log">{{ user.username }}</button>
+                </a>
+                <form action="{% url 'logout' %}" method="post">
+                    {% csrf_token %}
+                    <button type="submit">Logout</button>
+                </form>
+            {% else %}
+                <a href="{% url 'login' %}">
+                    <button class="log">Login</button>
+                </a>
+                <a href="{% url 'signup' %}">
+                    <button class="reg">Sign Up</button>
+                </a>
+            {% endif %}
+            </div> 
+            
+        </div>
+        <div class="header">
+            <h2>Your Cart</h2>
+        </div>
+        <div class="products">
+            {% for cart_item in cart_items %}
+            <div class="product">
+                <a href="{% url 'product' product_id=cart_item.p_id.pk %}">
+                    <img src="{% static cart_item.p_id.p_image %}" alt="{{ cart_item.p_id.p_name }}">
+                    <h3>{{ cart_item.p_id.p_name }}</h3>
+                </a>
+                <p>Price: ${{ cart_item.p_id.price }}</p>
+                <a href="{% url 'profile' seller_id=cart_item.p_id.seller.id %}">
+                    <p>Seller: {{ cart_item.p_id.seller.clark_email }}</p>
+                </a>
+                <form action="{% url 'remove_from_cart' product_id=cart_item.p_id.product_id %}" method="post">
+                    {% csrf_token %}
+                    <button type="submit">Remove from Cart</button>
+                </form>
+            </div>
+                {% if forloop.counter|divisibleby:5 and not forloop.last %}
+                    </div><div class="products">
+                {% endif %}
+            {% endfor %}
+        </div>
+        <div class="checkout-button">
+            <form action="{% url 'checkout' %}" method="post">
+                {% csrf_token %}
+                <button type="submit">Checkout</button>
+            </form>
+        </div>
+          
+    
+</body>
+</html>

@@ -1,0 +1,53 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Profile Page</title>
+    <link rel="stylesheet" href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css'>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+    <div class="header">
+        <a href="{% url 'home' %}">
+            <h1>CLARK'S CORNER</h1>
+        </a>
+        <!-- List of categories -->
+        <!-- Search bar -->
+        <div class="search-container">
+            <form action="{% url 'search' %}" method="get">
+                <input type="text" placeholder="Search Products..." name="q">
+                <button type="submit"><i class='bx bx-search-alt-2'></i></button>
+            </form>
+        </div>
+        <div class="container">
+            {% if user.is_authenticated %}
+                <a href="{% url 'profile' seller_id=user.id %}">
+                    <button class="log">{{ user.username }}</button>
+                </a>
+                <form action="{% url 'logout' %}" method="post">
+                    {% csrf_token %}
+                    <button type="submit">Logout</button>
+                </form>
+            {% else %}
+                <a href="{% url 'login' %}">
+                    <button class="log">Login</button>
+                </a>
+                <a href="{% url 'signup' %}">
+                    <button class="reg">Sign Up</button>
+                </a>
+            {% endif %}
+            </div> 
+    </div>
+    <div class="header">
+        <h2>Thank you for your order!</h2>
+    </div>
+    <div>
+        <h3>Please see "View Orders" on your profile page to see the receipt.</h3>
+    </div>
+    <div>
+        <p>Please contact the sellers you bought from to organize payment method and coordinate exchange of products: {{ sellers }}</p>
+    </div>
+
+</body>
+</html>

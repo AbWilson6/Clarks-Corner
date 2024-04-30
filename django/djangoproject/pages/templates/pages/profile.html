@@ -1,0 +1,97 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Profile Page</title>
+    <link rel="stylesheet" href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css'>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+    <div class="header">
+        <a href="{% url 'home' %}">
+            <h1>CLARK'S CORNER</h1>
+        </a>
+        <!-- List of categories -->
+        <!-- Search bar -->
+        <div class="search-container">
+            <form action="{% url 'search' %}" method="get">
+                <input type="text" placeholder="Search Products..." name="q">
+                <button type="submit"><i class='bx bx-search-alt-2'></i></button>
+            </form>
+        </div>
+        <div class="container">
+            {% if user.is_authenticated %}
+                <a href="{% url 'profile' seller_id=user.id %}">
+                    <button class="log">{{ user.username }}</button>
+                </a>
+                <form action="{% url 'logout' %}" method="post">
+                    {% csrf_token %}
+                    <button type="submit">Logout</button>
+                </form>
+                {% if user.username == seller.username %}
+                <a href="{% url 'add_product' %}">
+                    <button>Add Product</button>
+                </a>
+                <a href="{% url 'orders' %}">
+                    <button>View Orders</button>
+                </a>
+                {% else %}
+                <form action="{% url 'add_review' seller_id=seller.id %}" method="post">
+                    {% csrf_token %}
+                    <button type="submit">Write A Review</button>
+                </form>
+                {% endif %}
+            {% else %}
+                <a href="{% url 'login' %}">
+                    <button class="log">Login</button>
+                </a>
+                <a href="{% url 'signup' %}">
+                    <button class="reg">Sign Up</button>
+                </a>
+            {% endif %}
+            </div> 
+    </div>
+    <div class="user-info">
+        <h2>{{ seller.username }} - {{seller.clark_email}}</h2>
+        {% if average_rating %}
+            <p>Rating: {{ average_rating }} stars out of 5</p>
+        {% endif %}
+    </div>
+    <div class="header">
+        <h2>Products {{seller.username}} is selling!</h2>
+    </div>
+    <div class="products">
+        {% for product in user_products %}
+        <div class="product">
+            <a href="{% url 'product' product_id=product.product_id%}">
+                <img src="{% static product.p_image %}" alt="{{ product.p_name }}">
+                <h3>{{ product.p_name }}</h3>
+            </a>
+            <p>Price: ${{ product.price }}</p>
+            <p>Seller: {{ product.seller.clark_email }}</p>
+            {% if seller.username == user.username %}
+            <form action="{% url 'delete_product' product_id=product.product_id %}" method="post">
+                {% csrf_token %}
+                <button type="submit">Delete Product</button>
+            </form>
+            {% endif %}
+        </div>
+            {% if forloop.counter|divisibleby:5 and not forloop.last %}
+                </div><div class="products">
+            {% endif %}
+        {% endfor %}
+    </div>
+    <div class="header">
+        <h3>Reviews for {{seller.username}}</h3>
+    </div>
+    <div class="products">
+        {% for review in user_reviews %}
+            <div class="product">
+                <p>{{ review.send_user.username}} says: {{ review.r_description }}</p>
+                <p>Rating: {{ review.rating_number }}/5</p>
+            </div>
+        {% endfor %}
+    </div>
+</body>
+</html>
