@@ -1,0 +1,133 @@
+/* Global Styles */
+* {
+    font-family: Didot, serif;
+}
+
+body {
+    font-family: Didot, serif;
+    background-color: #f4f4f4;
+    color: #333;
+    margin: 0;
+    padding: 0;
+}
+
+/* Header Styles */
+h1 {
+    color: #000000;
+    text-align: center;
+    font-size: 40px;
+    margin: 0;
+    margin-left: 50px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* Product Styles */
+.product {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+    margin-bottom: 20px;
+    background-color: #fff;
+}
+
+/* Style the categories list */
+.categories-list {
+    list-style: none; /* Remove default list styles */
+    text-align: center; /* Center the list items */
+    padding: 0; /* Remove default padding */
+}
+
+.categories-list li {
+    display: inline-block; /* Display list items horizontally */
+    margin: 0 10px; /* Add some space between list items */
+}
+
+.categories-list li a {
+    text-decoration: none; /* Remove underline from links */
+    color: #333; /* Set link color */
+}
+
+/* Style the header */
+.header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    background-color: #f8f9fa;
+    border-bottom: 1px solid #ccc;
+}
+
+.header a {
+    text-decoration: none; /* Remove underline */
+    color: inherit; /* Use the default color */
+}
+
+/* Style the search container */
+.search-container {
+    display: flex;
+    align-items: center; /* Vertically center elements */
+    margin-left: auto; /* Push the search container to the right */
+    margin-right: 20px;
+}
+
+.search-container form {
+    margin-left: 500px; /* Push the form to the right */
+}
+
+.search-container input[type="text"] {
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: 300px;
+    font-family: Didot, serif;
+}
+
+.search-container button.bx-search-alt-2 {
+    /* Adjust icon size and color */
+    font-size: 30px;
+    color: rgb(0, 0, 0);
+    
+}
+.user-info {
+    margin-bottom: 20px; /* Add margin-bottom to create space */
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    
+}
+
+/* Product Styles */
+.products {
+    display: flex;
+    flex-wrap: nowrap; /* Prevent products from wrapping */
+    text-align: center;
+}
+
+.product {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+    margin-right: 20px; /* Add some space between products */
+    background-color: #fff;
+    margin: 0 30px;
+    margin-bottom: 20px;
+}
+
+.products:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+.product a {
+    color: inherit; 
+}
+
+
+.product img {
+    width: 200px; /* Set the desired width */
+    height: 200px; /* Set the desired height */
+    object-fit: cover; /* This property ensures that the image is proportionally scaled to cover the entire box */
+}
