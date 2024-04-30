@@ -1,0 +1,10 @@
+asgiref==3.7.2
+Django==4.2.11
+pillow==10.3.0
+psycopg2==2.9.9
+setuptools==69.1.1
+sqlparse==0.4.4
+uWSGI==2.0.23
+wheel==0.43.0
+django-redis-cache==3.0.1
+redis==3.5.3
