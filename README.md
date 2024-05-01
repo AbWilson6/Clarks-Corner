@@ -1,6 +1,20 @@
 # Django Examples
 
 A starter project for Clark's Corner. This project includes a web server and database.
+Welcome to Clark’s Corner, your go-to online marketplace tailored for the Clark University community! At Clark’s Corner, users must sign in using a Clark email, ensuring that the users of this marketplace are in fact part of the Clark community, providing safety, reliability, and convenience. Users can explore a diverse range of products, categorized into things like Housing & Living and Electronics. Whether you’re searching for academic essentials or unique collectibles, our platform offers an extensive selection to cater to your needs. With features like user profiles, sellers can showcase their products, receive reviews, and manage their inventory effortlessly, like adding or removing products. Buyers can browse through seller profiles, leave reviews, and add items to their cart for a seamless shopping experience. At checkout, a receipt of the order is created, saved, and placed in the user’s “View Orders” section of their profile, so they can view their past orders and items they’ve bought. We also offer a search bar, so if there is a particular item you are looking for right off the bat, go ahead and search it and you will see all related items. Clicking on a particular item will bring you to our product page, which shows the item, its description, price, and seller. 
+
+Notes about CRUD: 
+All CRUD (Create, Read, Update, Delete) operations are supported either via the Django Admin Interface or via our web application itself. Creating a new user is supported by our web application when you click on the “sign up” button and are redirected to our sign-up page. You can read the profile information on either the web application (via the profile pages) or on the admin interface. The functionality of updating and deleting users stays within the Django Admin Interface. 
+
+As for reviews, you are able to add a review and read the reviews on our web application (via the profile pages) but updating and deleting functionality is through the admin interface.  
+
+For products, you can add or remove your own products from the database on the web application (via the profile page of the user who is signed in). You can also read all the products on the web page through all the different pages categorizing the products. For updating a product, you must do that through the Django Admin Interface.
+
+For the has_in_cart table, you can add and remove items from your cart on our web app (via the “View My Cart” page on the profile page). You can view all the items of your cart in this same page. Updating the cart means adding or removing items from the cart, so that is covered, as mentioned. But again, these CRUD operations can also be done through the admin interface. 
+
+For receipts, when a user checks out their cart, a receipt is automatically created and saved in the database, and then you can view all your receipts in the “View Orders” page of your profile page. In the real world, a user shouldn’t be able to edit or remove their past receipts, so this functionality remains in the Django Admin Interface. Also, when a user checks out, whatever items that were in their cart are removed from the product database, as they should be.
+
+We understand that, ideally, more of the CRUD operations would be fully functional on our web application, however, given the time frame as well as the time we spent on debugging separate issues, this could be implemented in future work on this app.
 
 Follow these steps to get started:
 
